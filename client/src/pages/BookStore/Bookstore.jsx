@@ -4,7 +4,7 @@ import BookDetail from "../../components/Main/Books/BookDetail/BookDetail";
 import { Toaster } from "react-hot-toast";
 import BookList from "../../components/Main/Books/BookList/BookList";
 import Loading from "../../components/Main/Loading/Loading";
-import { getAllBooks } from "../../redux/features/book-slice";
+import { getAllBooks, getAllBooksWithPagination } from "../../redux/features/book-slice";
 import { useEffect } from "react";
 import SearchBar from "../../components/Main/SearchBar/SearchBar";
 
@@ -14,7 +14,7 @@ function Bookstore() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getAllBooks());
+    dispatch(getAllBooksWithPagination());
   }, []);
 
   let componentToRender;

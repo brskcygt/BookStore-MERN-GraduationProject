@@ -1,8 +1,9 @@
-import React from 'react'
-import Sidebar from '../components/Sidebar/Sidebar';
+import React from 'react';
+import { Navigate, Outlet } from 'react-router-dom';
 import styled from '@emotion/styled';
+
 import Navbar from '../components/Main/Navbar/Navbar';
-import {  Navigate, Outlet, redirect } from 'react-router-dom';
+import Sidebar from '../components/Sidebar/Sidebar';
 
 const Layout = styled.div`
   display: grid;
@@ -22,25 +23,22 @@ const MainLayout = styled.div`
 `;
 
 function ProtectedRoute() {
-    const auth = localStorage.getItem('_id') ? true : false;
-    if(!auth){
-     return <Navigate to="login"   replace />
-    }
+  const auth = !!localStorage.getItem('_id');
+  if (!auth) {
+    return <Navigate to="login" replace />;
+  }
 
   return (
-    <>
-        <Layout>
-        <Dummy>
-          <Sidebar />
-        </Dummy>
-        <MainLayout>
-          <Navbar />
-          <Outlet/>
-        </MainLayout>
-      </Layout>
-        
-    </>
-  )
+    <Layout>
+      <Dummy>
+        <Sidebar />
+      </Dummy>
+      <MainLayout>
+        <Navbar />
+        <Outlet />
+      </MainLayout>
+    </Layout>
+  );
 }
 
-export default ProtectedRoute
+export default ProtectedRoute;

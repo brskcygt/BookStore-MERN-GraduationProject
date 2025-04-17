@@ -7,6 +7,7 @@ import Login from "../pages/Login/Login";
 import Register from "../pages/Register/Register";
 import Profile from "../pages/Profile/Profile";
 import { useSelector } from "react-redux";
+import AddBook from "../components/AddBook";
 
 
 export default function MainRoutes() {
@@ -20,6 +21,7 @@ export default function MainRoutes() {
         <Route path="bookstore"  element={<Bookstore/>}/>
         <Route path="basket" element={<Basket />} />
         <Route path="profile" element={<Profile/>}/>
+        <Route path="addbook" element={<AddBook/>}/>
       </Route>
       <Route path="*" element={<h1>404</h1>}/>
     </Routes>

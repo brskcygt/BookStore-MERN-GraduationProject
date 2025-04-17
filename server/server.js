@@ -13,17 +13,18 @@ const port = process.env.PORT;
 const options = {
     definition:{
         openapi:'3.0.0',
-        info:{
-            title:'Node JS Project for MongoDB',
-            version:'1.0.0'
-        },
+        info: {
+            title: "Book API",
+            version: "1.0.0",
+            description: "A simple API for managing books",
+          },
         servers:[
             {
                 url: `http://localhost:${port}`
             }
         ]
     },
-    apis:['./server.js']
+    apis: ["./controller/*.js"]
 }
 
 const swaggerSpec = swaggerJSDoc(options);

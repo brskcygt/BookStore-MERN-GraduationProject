@@ -1,10 +1,10 @@
-import axios from "axios";
-import { toast } from "react-hot-toast";
+import { toast } from 'react-hot-toast';
+import axios from 'axios';
 
 class HttpService {
   constructor() {
     const service = axios.create({
-      baseURL: "http://localhost:8001",
+      baseURL: 'http://localhost:8001'
     });
 
     service.interceptors.response.use(this.handleSuccess, this.handleError);
@@ -14,22 +14,22 @@ class HttpService {
 
   handleSuccess(response) {
     return (
-     response.data.message ? ( toast.success(response.data.message, {
-      style: {
-        border: "1px solid #713200",
-        padding: "20px",
-        color: "#713200",
-        fontSize:"22px"
-      },
-    }),
-    response.data
-  ): response.data)
+      response.data.message ? (toast.success(response.data.message, {
+        style: {
+          border: '1px solid #713200',
+          padding: '20px',
+          color: '#713200',
+          fontSize: '22px'
+        }
+      }),
+      response.data
+      ) : response.data);
   }
 
   handleError(error) {
     switch (error.response.status) {
       case 401:
-        window.location.href = "/login";
+        window.location.href = '/login';
         break;
       case 404:
         // Not found
@@ -37,12 +37,12 @@ class HttpService {
         break;
       default:
         // Internal server error
-        toast.error(error.response.data.message,{
-          style:{
-            border: "1px solid #713200",
-            padding: "10px",
-            color: "#fff",
-            fontSize:"22px"
+        toast.error(error.response.data.message, {
+          style: {
+            border: '1px solid #713200',
+            padding: '10px',
+            color: '#fff',
+            fontSize: '22px'
           }
         });
         break;

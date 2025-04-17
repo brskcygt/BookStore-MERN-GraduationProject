@@ -1,21 +1,27 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import service from "../utilities/fetch.js";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+
+import service from '../utilities/fetch.js';
 
 const initialState = {
   allBooks: [],
   selected: null,
-  searchKeyword: "",
+  searchKeyword: '',
   cart: false,
-  isLoading: false,
+  isLoading: false
 };
 
-export const getAllBooks = createAsyncThunk("books/getAllBooks", async () => {
-  const bookData = await service.get("/books");
+export const getAllBooks = createAsyncThunk('books/getAllBooks', async () => {
+  const bookData = await service.get('/books');
   return bookData;
 });
 
+export const getAllBooksWithPagination = createAsyncThunk('books/getAllBooksWithPagination', async () => {
+  const bookData = await service.get('/books?limit=20&page=1');
+  return bookData.data;
+});
+
 export const bookSlice = createSlice({
-  name: "books",
+  name: 'books',
   initialState,
   reducers: {
     setSelected(state, action) {
@@ -26,7 +32,7 @@ export const bookSlice = createSlice({
     },
     setCart(state) {
       state.cart = !state.cart;
-    },
+    }
   },
   extraReducers: {
     [getAllBooks.pending]: (state) => {
@@ -39,7 +45,17 @@ export const bookSlice = createSlice({
     [getAllBooks.rejected]: (state) => {
       state.isLoading = false;
     },
-  },
+    [getAllBooksWithPagination.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [getAllBooksWithPagination.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.allBooks = action.payload;
+    },
+    [getAllBooksWithPagination.rejected]: (state) => {
+      state.isLoading = false;
+    }
+  }
 });
 
 export const bookActions = bookSlice.actions;
